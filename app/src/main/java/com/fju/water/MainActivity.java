@@ -16,9 +16,11 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -92,6 +94,14 @@ public class MainActivity extends AppCompatActivity {
                 isNext =isChecked;
                 TextView tv =findViewById(R.id.type);
                 tv.setText(isNext?getString(R.string.every_other_month):getString(R.string.monthly));
+            }
+        });
+        //找到下拉選單得東西
+        Spinner cities =findViewById(R.id.spinner);
+        cities.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                
             }
         });
         Button button =findViewById(R.id.summit);
