@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,6 +24,7 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG =MainActivity.class.getSimpleName() ;
     private TextView month;
         private Button result;
     private double outcome;
@@ -31,10 +33,47 @@ public class MainActivity extends AppCompatActivity {
     boolean isNext =false;
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(TAG,"onStart");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(TAG,"onStop");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG,"onDestroy");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(TAG,"onPause");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d(TAG,"onRestart");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG,"onResume");
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        Log.d(TAG,"onCreate");
         month = findViewById(R.id.month);
                 result = findViewById(R.id.summit);
         setSupportActionBar(toolbar);
@@ -60,38 +99,24 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 title = "";
-                if (!TextUtils.isEmpty(month.getText().toString())){
-                    if (isNext) {
-                        float monthn = Float.parseFloat(month.getText().toString());
-                        outcome = 0;
-                        if (monthn >= 1 && monthn <= 10) {
-                            outcome = monthn * 7.35f;
-                        } else if (monthn >= 11 && monthn <= 30) {
-                            outcome = (monthn * 9.45f) - 21;
-                        } else if (monthn >= 31 && monthn <= 50) {
-                            outcome = (monthn * 11.55f) - 84;
-                        } else if (monthn >= 51) {
-                            outcome = (monthn * 12.075f) - 110.25f;
-                        }
-                        new AlertDialog.Builder(MainActivity.this)
-                                .setTitle("每月抄表")
-                                .setMessage(getString(R.string.fee)+outcome)
-                                .setPositiveButton(getString(R.string.ok),null)
-                                .show();
-                       /* Intent intent = new Intent(MainActivity.this, ResultActivity.class);
-                        intent.putExtra(getString(R.string.extra_fee), outcome);
-                        startActivity(intent);*/
-                    }
-
-          /* new AlertDialog.Builder(MainActivity.this)
-                    .setTitle("每月抄表")
-                    .setMessage(getString(R.string.fee)+outcome)
-                    .setPositiveButton(getString(R.string.ok),null)
-                    .show();*/
-                }
-                /*else if (!TextUtils.isEmpty(next.getText().toString())){
-                    float nextn=Float.parseFloat(next.getText().toString());
+                if (isNext==false) {
+                    float monthn = Float.parseFloat(month.getText().toString());
                     outcome = 0;
+                    if (monthn >= 1 && monthn <= 10) {
+                        outcome = monthn * 7.35f;
+                    } else if (monthn >= 11 && monthn <= 30) {
+                        outcome = (monthn * 9.45f) - 21;
+                    } else if (monthn >= 31 && monthn <= 50) {
+                        outcome = (monthn * 11.55f) - 84;
+                    } else if (monthn >= 51) {
+                        outcome = (monthn * 12.075f) - 110.25f;
+                    }
+                    Intent intent = new Intent(MainActivity.this, ResultActivity.class);
+                    intent.putExtra(getString(R.string.extra_fee), outcome);
+                    startActivity(intent);
+                }
+                if (isNext){
+                    float nextn = Float.parseFloat(month.getText().toString());
                     if (nextn>=1&&nextn<=20){
                         outcome=nextn*7.35f;
                     }
@@ -108,16 +133,17 @@ public class MainActivity extends AppCompatActivity {
                             .setMessage("費用: "+outcome)
                             .setPositiveButton("ok",null)
                             .show();
-                }*/
-              /*  else if (TextUtils.isEmpty(next.getText().toString())&&TextUtils.isEmpty(month.getText().toString())){
-                    new AlertDialog.Builder(MainActivity.this)
-                            .setTitle("fail")
-                            .setMessage("fail")
-                            .setPositiveButton("ok",null)
-                            .show();
-                }*/
-            }
+                }
+
+              /*  new AlertDialog.Builder(MainActivity.this)
+                        .setTitle("每月抄表")
+                        .setMessage(getString(R.string.fee)+outcome)
+                        .setPositiveButton(getString(R.string.ok),null)
+                        .show();*/
+                }
+
         });
+
     }
 
     @Override
