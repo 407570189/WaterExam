@@ -98,10 +98,15 @@ public class MainActivity extends AppCompatActivity {
         });
         //找到下拉選單得東西
         Spinner cities =findViewById(R.id.spinner);
-        cities.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        cities.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.d(TAG,getResources().getStringArray(R.array.cities)[position]);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
         Button button =findViewById(R.id.summit);
