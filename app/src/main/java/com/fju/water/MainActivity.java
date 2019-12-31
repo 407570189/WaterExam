@@ -28,12 +28,12 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG =MainActivity.class.getSimpleName() ;
     private TextView month;
-        private Button result;
+    private Button result;
     private double outcome;
     private String title;
     private Double outcome1;
     boolean isNext =false;
-
+    String abc;
     @Override
     protected void onStart() {
         super.onStart();
